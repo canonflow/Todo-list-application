@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #C2D9FF;
+}
+
+.box {
+    max-width: 400px;
+}
+
+#heading h1 {
+    padding: 0.6rem 1.8rem;
+    background-color: #192655;
+    color: #ffffff;
+    border-radius: 0.4rem;
+    text-align: center;
+}
+
+.list {
+    border-radius: 0.4rem;
+    background-color: #ffffff;
+    padding: 1rem 0.8rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.item {
+    display: flex;
+    border-radius: 5px;
+    position: relative;
+}
+
+.item:hover {
+    background-color: #e4e9fd;
+}
+
+.item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1.2px;
+    /* background-color: #7C81AD; */
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    bottom: 0;
+}
+
+.item input {
+    margin: 1rem 1.5rem;
+    accent-color: #4D4C7D;
+    transform: scale(1.2);
+}
+
+.long {
+    word-wrap: break-word; /* Allow long words to break and wrap */
+    width: 82%;
+}
+
+input:checked + p {
+    color: #b2b2b2;
+    text-decoration: line-through #7752FE;
+}
+
+.add {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 1rem 0 1rem;
+}
+
+.add input {
+    border: none;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.add input::placeholder {
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.add input:focus {
+    outline: none;
+    accent-color: red;
+}
+
+.add button {
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #D0BFFF;
+    padding: 0.3rem 1rem;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: white;
+}
+
+.add button:hover {
+    background-color: #DFCCFB;
+}
+
+.add button:focus {
+    background-color: #BEADFA;
+}
+
+#alert {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 1.3rem 2.4rem;
+    border-radius: 8px;
+    overflow: hidden;
+    font-weight: 500;
+    font-size: large;
+    background-color: #B0D9B1;
+    color: #fff;
+    /* display: none; */
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+    cursor: default;
+}
+
+#progress {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 5px;
+    background-color: #79AC78;
+    transform: translateX(-2.4rem);
+}

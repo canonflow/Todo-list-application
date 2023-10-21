@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+    <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+    <div id="heading" class="box">
+        <h1><%= locals.dates.day %>, <%= locals.dates.month %> <%= locals.dates.date %></h1>
+    </div>
+    <div class="list box">
+        <div class="item">
+            <input type="checkbox">
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem quod, alias quidem cupiditate repudiandae aperiam possimus repellendus molestiae hic sint rem, commodi eos impedit nostrum, sed temporibus reprehenderit exercitationem iure.</p>
+        </div>
+        <div class="item">
+            <input type="checkbox">
+            <p>nathansja</p>
+        </div>
+        <div class="item">
+            <input type="checkbox">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint enim, nulla necessitatibus cum voluptatem tempora aperiam dolorum animi. Veniam tenetur quaerat aliquam praesentium illo ex doloribus ea. Eos, iusto ipsa?
+            Quaerat at ratione corrupti sapiente perspiciatis neque hic nesciunt, beatae aperiam saepe eaque accusamus nobis iusto facere velit autem mollitia libero voluptas architecto a consectetur! Ullam laboriosam quas vel nam!
+            Explicabo alias dicta ab saepe minima nisi ea cumque magnam nemo quos fugit voluptas, quidem illum reprehenderit at sint non officia impedit aut est provident, tenetur dolorum? Non, eum dignissimos?</p>
+        </div>
+        <div class="item">
+            <input type="checkbox">
+            <p>Ini sebelum tambah</p>
+        </div>
+        <% if (locals.todos.length > 0) {%>
+            <% locals.todos.forEach(todo => { %>
+                <div class="item">
+                    <input type="checkbox">
+                    <p class="long"><%= todo  %></p>
+                </div>
+            <% }); %>
+        <% } %>
+        <form action="/add" class="add" method="post">
+            <input type="text" name="todo" placeholder="New Todo">
+            <button id="btn-add">Add</button>
+        </form>
+    </div>
+    <div id="alert">
+        Berhasil menambahkan!
+        <div id="progress"></div>
+    </div>
+    <script>
+        // Biar kalo refresh, cookie add-todo nilainya false
+        window.addEventListener('beforeunload', function() {
+            document.cookie = 'add-todo=false'
+        });
+
+        // Interval Animasi
+        const INTERVAL = 2000;
+
+        let alert = document.getElementById('alert');
+        let progress = document.getElementById('progress');
+
+        let cookie = getCookie('add-todo');
+        // TODO: Kalo nilai dari cookie 'add-todo' itu 'true', maka jalankan animasi alert
+        if (cookie == 'true') {
+            alert.style.opacity = '1';
+            let width = window.getComputedStyle(progress).getPropertyValue('width');
+            width = parseFloat(width.slice(0, width.length-2));
+
+            const steps = INTERVAL / 20;
+            const widthChange = width / steps;
+
+            // TODO: Animasi Progress dari Alert
+            const prg = setInterval(() => {
+                let currentProgress = width;
+                width -= widthChange
+                progress.style.width = `${width}px`;
+
+                if (width <= 0) {
+                    clearInterval(prg);
+                }
+            }, INTERVAL/steps);
+
+            // TODO: Waktu Alert menghilang
+            setTimeout(() => {
+                document.cookie = 'add-todo=false';
+                alert.style.opacity = '0';
+            }, INTERVAL);
+        }
+
+        // Get Cookie value
+        function getCookie(name) {
+            const cookies = document.cookie.split('; ');
+            for (const cookie of cookies) {
+                const [cookieName, cookieValue] = cookie.split('=');
+                if (cookieName === name) {
+                    return decodeURIComponent(cookieValue);
+                }
+            }
+            return null; // Cookie not found
+        }
+    </script>
+</body>
+</html>
